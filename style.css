@@ -120,8 +120,9 @@ header h2{
 /*------------------------------------------------------------------------------------------------------------------------------------------*/
 .button {
     position: relative;
-    background-color: #400160;
+    background-color: rgb(30,30,30);
     border: none;
+    border-radius: 10px;
     font-size: 18px;
     color: #FFFFFF;
     padding: 20px;
@@ -136,7 +137,7 @@ header h2{
 
 .button:after {
     content: "";
-    background: #400160;
+    background: rgb(30,30,30);
     display: block;
     position: absolute;
     padding-top: 300%;
