@@ -79,10 +79,6 @@ header h2 a{
 	padding: 20px 8px 15px 40px;
 }
 
-
-
-
-
 .chan{
 	margin:0;
 	padding:0;
@@ -112,26 +108,32 @@ header h2 a{
 	padding:7% 0% 0% 6%;
 	margin:0;
 }
-.hr{
-	position: absolute;
-	left: 159px;
-	top: 160px;
-	
+
+
+
+.button {
+  
+  padding: 15px 15px;
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 }
-.ll{
-	
-	text-decoration: none;
-	color: red;
-	font-weight: 900;
-	font-size: 20px;
-	margin:0;
-	font-family: 'Roboto', sans-serif ;
- }
-.cc{
-	position: absolute;
-	left: 215px;
-	top: 250px;
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
+
 #cci{
 	height: 30px;
 	width: 100px;
@@ -140,12 +142,6 @@ header h2 a{
 	left: 95px;
 	top: 275px;
 }
-
-.cf{
-	position: absolute;
-	left: 199px;
-	top: 330px;
-}
 #cfi{
 	height: 30px;
 	width: 100px;
@@ -153,4 +149,20 @@ header h2 a{
 	position: absolute;
 	left: 94px;
 	top: 360px;
+}
+#cf{
+	position: absolute;
+	left: 50px;
+	top: 100px;
+}
+#cc{
+	position: absolute;
+	left: 50px;
+	top: 200px;
+}
+#hr{
+	position: absolute;
+	left: 50px;
+	top: 300px;
+	
 }
