@@ -184,3 +184,23 @@ header h2{
 	top: 300px;
 	
 }
+
+.github{
+	height:50px;
+	width:50px;
+	margin:0;
+	padding:0;
+	position: absolute;
+	top:2px;
+	right:8px;
+}
+
+.github:hover {
+	height:50px;
+	width:55px;
+	margin:0;
+	padding:0;
+	position: absolute;
+	top:2px;
+	right:8px;
+}
