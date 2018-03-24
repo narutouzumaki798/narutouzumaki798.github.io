@@ -196,7 +196,7 @@ header h2{
 	width:50px;
 	margin:0;
 	padding:0;
-	position: absolute;
+	position: fixed;
 	top:2px;
 	right:8px;
 }
@@ -206,7 +206,7 @@ header h2{
 	width:52px;
 	margin:0;
 	padding:0;
-	position: absolute;
+	position: fixed;
 	top:1px;
 	right:7px;
 }
