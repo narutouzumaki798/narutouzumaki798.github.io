@@ -22,7 +22,7 @@ header h2{
  display:inline;
 }
 
-header h2 a{
+ a{
 	text-decoration: none;
 	font-family: 'Roboto', sans-serif ;
 	color: white;
