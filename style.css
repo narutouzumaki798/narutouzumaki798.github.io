@@ -4,13 +4,14 @@
 
 body{
 	margin:0;
+	background-color: black;
 }
 
 header{
 	background: black;
 	color: white;
     height:60px;
-    width: 100vw;
+    width: 1600px;
 
 }
 
@@ -39,8 +40,8 @@ header h2{
 .itachi{
 
 	 background-image: url("itachi.jpg") ; 
-	 width:100vw;
-	 height: 100vh;
+	 width:1600px;
+	 height: 900px;
 	 float: left;
 	 /*background-size: cover; */
 	 background-repeat: no-repeat;
@@ -51,14 +52,14 @@ header h2{
 .name{
 	padding: 10% 10% 0% 5%;
 	margin:0;
-	color: yellow;
+	color: grey;
 	font-family: 'Oswald', sans-serif;
 	font-size: 50px;
 }
 
 .ddd{
 	background-color: red;
-	width:100vw;
+	width:1600px;
 	height:5px;
 }
 
@@ -190,17 +191,21 @@ header h2{
 	width:50px;
 	margin:0;
 	padding:0;
-	position: absolute;
+	position: fixed;
 	top:2px;
 	right:8px;
 }
 
 .github:hover {
-	height:50px;
-	width:55px;
+	height:52px;
+	width:52px;
 	margin:0;
 	padding:0;
 	position: absolute;
-	top:2px;
-	right:8px;
+	top:1px;
+	right:7px;
 }
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------------------------------------------------*/
