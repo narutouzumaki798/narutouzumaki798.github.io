@@ -249,6 +249,7 @@ header h2 {
 .anbu{
   margin:0;
   background-image: url("anbu.jpg");
+  background-repeat: no-repeat;	
   height:900px;
   width:1600px;
 }
