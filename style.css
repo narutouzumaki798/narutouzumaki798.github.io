@@ -124,43 +124,22 @@ header h2 {
 
 
 /*------------------------------------------------------------------------------------------------------------------------------------------*/
-.button {
-    position: relative;
-    background-color: rgb(30,30,30);
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    color: #FFFFFF;
-    padding: 20px;
-    width: 200px;
-    text-align: center;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
+.btn {
+  background-color: rgb(20,20,20);
+  border: none;
+  color: black;
+  cursor: pointer;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
 }
 
-.button:after {
-    content: "";
-    background: rgb(30,30,30);
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px!important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
+.btn:hover {
+  background-color: #3e8e41;
+  color: white;
 }
-
-.button:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-}
-
 
 
 
@@ -249,7 +228,7 @@ header h2 {
 .anbu{
   margin:0;
   background-image: url("anbu.jpg");
-  background-repeat: no-repeat;	
+  background-repeat: no-repeat;
   height:900px;
   width:1600px;
 }
@@ -680,3 +659,7 @@ a.animated-button.thar-four:before {
 0s;
 }
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
+.gib{
+  height:50px;
+  width: 200px;
+}
