@@ -101,9 +101,10 @@ function reset(){
 }
 
 function gover(){
- ctx.fillStyle="#34232b";
+
+/* ctx.fillStyle="#34232b";
  ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
- ctx.fillStyle="#ff0000";
+ ctx.fillStyle="#ff0000"; */
 
 //-------------------------------------------------------------
 
@@ -128,6 +129,7 @@ function gover(){
 
 //---------------------------------------------------------------
 
+/*
  ctx.fillStyle="#ff0000";
  posy=posy+speedy;
  if(groundh-posy<=50)
@@ -141,7 +143,7 @@ if(onground==false)
 
  aaa["x"]=aaa["x"]-speedx;
  if(Math.abs(aaa["x"]-posx)<=50 && Math.abs(posy-aaa["height"])<=50 )
- //ctx.fillRect(100,100,50,50);
+ 
  
  if(aaa["x"]<=-50) reset();
 
@@ -152,8 +154,8 @@ if(onground==false)
  ctx.fillRect(0,groundh,ctx.canvas.width,ctx.canvas.height);
  ctx.fillStyle="#663300";
  ctx.fillRect(aaa["x"],aaa["height"],50,groundh-aaa["height"]);
+*/
 
- //window.requestAnimationFrame(loop);
  
  }
 
@@ -187,6 +189,7 @@ if(onground==false)
  
  if(aaa["x"]<=-50) reset();
  speedx=speedx+0.02;
+ 
  
  ctx.fillStyle="#ff0000";
  ctx.fillRect(posx,posy,50,50);
