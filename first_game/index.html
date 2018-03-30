@@ -1,0 +1,179 @@
+<html>
+
+<head> <title>tttttt</title></head>
+
+<body>
+    <canvas id="canvas" style="border:1px solid #000000;" ></canvas>
+</body>
+</html>
+
+<style>
+    body{
+        background-color: black;
+    }
+    html{
+        background-color: black;
+    }
+    img{
+        position: absolute;
+        top:100px;
+        left:50px;
+    }
+    #gg{
+        position:absolute;
+        top:200px;
+        left:10px;
+    }
+</style>
+
+<script>
+
+var can=document.getElementById('canvas');
+var ctx=can.getContext('2d');
+ctx.canvas.width=400;
+ctx.canvas.height=600;
+
+var 
+posx=10,
+s=20,
+h=50,
+f=0,
+groundh=500,
+posy=groundh-h,
+speedx=5,
+speedy=0,
+onground=true,
+gravity=1;
+
+
+var aaa={
+
+  
+  height:groundh-s,
+  x:ctx.canvas.width+1
+
+};
+
+function eee(){
+    if(onground==true)
+    {
+    speedy=-20; onground=false;
+    }
+}
+
+function reset(){
+    s=Math.floor((Math.random()*500)+5);
+    aaa["x"]=canvas.width+s;
+    s=Math.floor((Math.random()*90)+20);
+    aaa["height"]=groundh-s;
+}
+
+function gover(){
+ ctx.fillStyle="#34232b";
+ ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+ ctx.fillStyle="#ff0000";
+
+//-------------------------------------------------------------
+
+    var img = document.createElement("img");
+    img.src ="iii.png";
+    img.width = 300;
+    img.height = 50;
+    
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+
+    var img1 = document.createElement("img");
+    img1.src ="gg.png";
+    img1.id="gg";
+    img1.width = 400;
+    img1.height = 150;
+    
+    
+    document.body.appendChild(img1);
+
+
+//---------------------------------------------------------------
+
+ ctx.fillStyle="#ff0000";
+ posy=posy+speedy;
+ if(groundh-posy<=50)
+ {
+     onground=true; speedy=0;
+ }
+if(onground==false)
+{
+    speedy=speedy+gravity;
+}
+
+ aaa["x"]=aaa["x"]-speedx;
+ if(Math.abs(aaa["x"]-posx)<=50 && Math.abs(posy-aaa["height"])<=50 )
+ //ctx.fillRect(100,100,50,50);
+ 
+ if(aaa["x"]<=-50) reset();
+
+ 
+ ctx.fillStyle="#ff0000";
+ ctx.fillRect(posx,posy,50,50);
+ ctx.fillStyle="#885f4b";
+ ctx.fillRect(0,groundh,ctx.canvas.width,ctx.canvas.height);
+ ctx.fillStyle="#663300";
+ ctx.fillRect(aaa["x"],aaa["height"],50,groundh-aaa["height"]);
+
+ //window.requestAnimationFrame(loop);
+ 
+ }
+
+
+
+ function loop(){
+ ctx.fillStyle="#34232b";
+ ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
+
+
+ ctx.fillStyle="#ff0000";
+ posy=posy+speedy;
+ if(groundh-posy<=50)
+ {
+     onground=true; speedy=0;
+ }
+if(onground==false)
+{
+    speedy=speedy+gravity;
+}
+
+ aaa["x"]=aaa["x"]-speedx;
+ if(Math.abs(aaa["x"]-posx)<=50 && Math.abs(posy-aaa["height"])<=50 )
+ {
+ ctx.fillStyle="#ff0000";
+ //ctx.fillRect(100,100,50,50);
+ f=1;
+ window.requestAnimationFrame(gover);
+ }
+ 
+ if(aaa["x"]<=-50) reset();
+ speedx=speedx+0.02;
+ 
+ ctx.fillStyle="#ff0000";
+ ctx.fillRect(posx,posy,50,50);
+ ctx.fillStyle="#885f4b";
+ ctx.fillRect(0,groundh,ctx.canvas.width,ctx.canvas.height);
+ ctx.fillStyle="#663300";
+ ctx.fillRect(aaa["x"],aaa["height"],50,groundh-aaa["height"]);
+
+ if(f==0)
+ window.requestAnimationFrame(loop);
+ 
+ }
+
+
+
+
+
+ window.requestAnimationFrame(loop);
+ window.addEventListener("keydown",eee);
+
+</script>
+
