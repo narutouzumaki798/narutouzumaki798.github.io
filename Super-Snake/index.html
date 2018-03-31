@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Super Snake</title>
+	<link rel="shortcut icon" href="skull.ico"/>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <h2 id="clock">TIME: 100</h2>
+  <h2>Use ARROW KEYS to Move</h2>
+  <h2 id="score" > Score: 0 <br></h2>
+  <h3>Made By: <br> Bikshan Chatterjee</h3>
+</body>
+</html>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Oswald:400,700');
+    body{
+        background-color: black;
+    }
+    html{
+        background-color: black;
+    }
+    img{
+        position: absolute;
+        top:100px;
+        left:50px;
+    }
+	#gg{
+        position:absolute;
+        top:300px;
+        left:10px;
+    }
+    #tle{
+        position:absolute;
+        top:200px;
+        left:150px;
+    }
+	#clock{
+		color:white;
+        position: absolute;
+        top:200px;
+        left:420px;
+        font-family: 'Oswald', sans-serif;
+	}
+    #score{
+        color:white;
+        position: absolute;
+        top:300px;
+        left:420px;
+        font-family: 'Oswald', sans-serif;
+
+    }
+    h2{
+        color:white;
+        position: absolute;
+        top:400px;
+        left:420px;
+        font-family: 'Oswald', sans-serif;
+    }
+    h3{
+        color:white;
+        position: absolute;
+        top:510px;
+        left:420px;
+        font-family: 'Oswald', sans-serif;
+    }
+</style>
+
+<script type="text/javascript">
+	var can=document.getElementById("canvas");
+	var ctx=can.getContext("2d");
+	canvas.width=400;
+	canvas.height=600;
+    var
+	x=100,
+	y=100,
+	over=0,
+	bgcolor="#34232b",
+	box=20,
+	f=1,
+	tlimit=100,
+	time=tlimit,
+	step=1,
+	score=0,
+	speedx=1,
+	speedy=0,
+	loopcnt=0;
+
+
+    snake=[];
+	snake[0]={
+		x:5,
+		y:5
+	};
+	snake[1]={
+		x:4,
+		y:5
+	};
+	snake[2]={
+		x:3,
+		y:5
+	};
+	snake[3]={
+		x:2,
+		y:5
+	};
+
+    var food={
+		x:Math.floor(Math.random()*17+1),
+		y:Math.floor(Math.random()*27+1)
+	};
+     
+	 function controller(event){
+		 if(step==1)
+		 {
+			 step=0;
+         if(event.keyCode==37 && speedx!=1)
+		 {
+			 speedx=-1; speedy=0;
+		 }
+		 if(event.keyCode==38 && speedy!=1)
+		 {
+			 speedx=0; speedy=-1;
+		 }
+		 if(event.keyCode==39 && speedx!=-1)
+		 {
+			 speedx=1; speedy=0;
+		 }
+		 if(event.keyCode==40 && speedy!=-1)
+		 {
+			 speedx=0; speedy=1;
+		 }
+		 }
+	 }
+
+     
+    function gover()
+	{
+      
+	over=1;
+	var img = document.createElement("img");
+    img.src ="iii.png";
+    img.width = 300;
+    img.height = 50;
+    document.body.appendChild(img);
+
+    var img1 = document.createElement("img");
+    img1.src ="gg.png";
+    img1.id="gg";
+    img1.width = 400;
+    img1.height = 150;
+    document.body.appendChild(img1);
+
+/*
+	if(time==0)
+	{
+	var img2 = document.createElement("img");
+    img2.src ="TLE.png";
+    img2.id="tle";
+    img2.width = 100;
+    img2.height = 50;
+    document.body.appendChild(img2);
+	}
+*/
+
+	}
+    
+
+	function reset()
+	{
+		food.x=Math.floor(Math.random()*17+1);
+		food.y=Math.floor(Math.random()*27+1);
+	}
+
+	function loop(){
+
+    if(loopcnt==0)
+	{
+	time--;
+	step=1;
+
+    var eee=document.getElementById("clock");
+    eee.innerHTML="TIME: "+time;
+
+    ctx.fillStyle=bgcolor;
+	ctx.fillRect(0,0,400,600);
+    ctx.fillStyle="#ff0000";
+	for(i=snake.length-1;i>=0;i--)
+	{
+	if(i==0) ctx.fillStyle="white";
+	else ctx.fillStyle="#ff0000";
+	ctx.fillRect(snake[i].x*box,snake[i].y*box,box,box);
+	}
+
+    //collision
+    for(i=0;i<snake.length;i++)
+	{
+		for(j=i+1;j<snake.length;j++)
+		{
+			if(snake[i].x==snake[j].x && snake[i].y==snake[j].y)
+			//ctx.fillRect(100,100,50,50);
+			window.requestAnimationFrame(gover);
+		}
+	}
+
+
+	//time-out
+    if(time==0)
+	{
+		window.requestAnimationFrame(gover);
+	}
+    
+
+	x=x+speedx; y=y+speedy;
+    ctx.fillStyle="#ff9900";
+	//console.log(food["x"]);
+	//console.log(food["y"]);
+	f=0;
+    ctx.fillRect((food["x"])*box,food["y"]*box,box,box);
+
+	//eating food
+    if(snake[0].x==food.x && snake[0].y==food.y)
+	{
+		reset(); f=1; score=score+1;
+		time=tlimit;
+		var ttt=document.getElementById("score");
+		ttt.innerHTML="Score: "+score;
+	}
+
+     
+    snake.unshift({x:(snake[0].x+speedx),y:(snake[0].y+speedy)});
+	
+	if(snake[0].x>=20) snake[0].x=0;
+	if(snake[0].x<=-1) snake[0].x=19;
+	if(snake[0].y>=30) snake[0].y=0;
+	if(snake[0].y<=-1) snake[0].y=29;
+	
+	if(f==0)
+	snake.pop();
+	}
+
+
+	loopcnt=(loopcnt+1)%2;
+
+	if(over==0)
+	window.requestAnimationFrame(loop);
+    
+	}
+    window.addEventListener("keydown",controller);
+	window.requestAnimationFrame(loop);
+</script>
