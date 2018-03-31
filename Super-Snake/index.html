@@ -84,7 +84,8 @@
 	bgcolor="#34232b",
 	box=20,
 	f=1,
-	tlimit=100,
+	inl=15,
+	tlimit=200,
 	time=tlimit,
 	step=1,
 	score=0,
@@ -94,23 +95,19 @@
 
 
     snake=[];
-	snake[0]={
-		x:5,
-		y:5
-	};
-	snake[1]={
-		x:4,
-		y:5
-	};
-	snake[2]={
-		x:3,
-		y:5
-	};
-	snake[3]={
-		x:2,
-		y:5
-	};
+	tmpx=18;
+	tmpy=5;
 
+	//Snake initialization
+	for(i=0;i<inl;i++)
+	{
+		snake[i]={
+			x:tmpx,
+			y:5
+		};
+		tmpx--;
+	}
+	
     var food={
 		x:Math.floor(Math.random()*17+1),
 		y:Math.floor(Math.random()*27+1)
