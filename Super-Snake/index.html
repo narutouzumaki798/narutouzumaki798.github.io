@@ -215,7 +215,15 @@
 			window.requestAnimationFrame(gover);
 		}
 	}
-
+    
+	//eating food
+    if(snake[0].x==food.x && snake[0].y==food.y)
+	{
+		reset(); f=1; score=score+1;
+		time=tlimit;
+		var ttt=document.getElementById("score");
+		ttt.innerHTML="Score: "+score;
+	}
 
 	//time-out
     if(time==0)
@@ -231,14 +239,7 @@
 	f=0;
     ctx.fillRect((food["x"])*box,food["y"]*box,box,box);
 
-	//eating food
-    if(snake[0].x==food.x && snake[0].y==food.y)
-	{
-		reset(); f=1; score=score+1;
-		time=tlimit;
-		var ttt=document.getElementById("score");
-		ttt.innerHTML="Score: "+score;
-	}
+	
 
      
     snake.unshift({x:(snake[0].x+speedx),y:(snake[0].y+speedy)});
