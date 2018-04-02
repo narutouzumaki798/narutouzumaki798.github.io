@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Super Snake</title>
+	<title>Super-Snake</title>
 	<link rel="shortcut icon" href="skull.ico"/>
 </head>
 <body>
@@ -107,12 +107,12 @@
 		};
 		tmpx--;
 	}
-	
+
     var food={
 		x:Math.floor(Math.random()*17+1),
 		y:Math.floor(Math.random()*27+1)
 	};
-     
+
 	 function controller(event){
 		 if(step==1)
 		 {
@@ -136,10 +136,10 @@
 		 }
 	 }
 
-     
+
     function gover()
 	{
-      
+
 	over=1;
 	var img = document.createElement("img");
     img.src ="iii.png";
@@ -163,8 +163,8 @@
     img2.width = 100;
     img2.height = 50;
     document.body.appendChild(img2);
-	} 
-	else 
+	}
+	else
 	{
 	var img2 = document.createElement("img");
     img2.src ="SIGSEV.png";
@@ -177,7 +177,7 @@
 
 
 	}
-    
+
 
 	function reset()
 	{
@@ -215,7 +215,7 @@
 			window.requestAnimationFrame(gover);
 		}
 	}
-    
+    	f=0;
 	//eating food
     if(snake[0].x==food.x && snake[0].y==food.y)
 	{
@@ -230,25 +230,25 @@
 	{
 		window.requestAnimationFrame(gover);
 	}
-    
+
 
 	x=x+speedx; y=y+speedy;
     ctx.fillStyle="#ff9900";
 	//console.log(food["x"]);
 	//console.log(food["y"]);
-	f=0;
+
     ctx.fillRect((food["x"])*box,food["y"]*box,box,box);
 
-	
 
-     
+
+
     snake.unshift({x:(snake[0].x+speedx),y:(snake[0].y+speedy)});
-	
+
 	if(snake[0].x>=20) snake[0].x=0;
 	if(snake[0].x<=-1) snake[0].x=19;
 	if(snake[0].y>=30) snake[0].y=0;
 	if(snake[0].y<=-1) snake[0].y=29;
-	
+
 	if(f==0)
 	snake.pop();
 	}
@@ -258,7 +258,7 @@
 
 	if(over==0)
 	window.requestAnimationFrame(loop);
-    
+
 	}
     window.addEventListener("keydown",controller);
 	window.requestAnimationFrame(loop);
