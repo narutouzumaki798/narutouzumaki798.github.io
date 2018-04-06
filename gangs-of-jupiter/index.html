@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="skull.ico"/>
+    <title> Bikshan Chatterjee </title>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <h3 id="ea"> v0.1 Early Access </h1>
+   <!-- <img src="ship.png" alt=""> -->
+  </body>
+</html>
+
+<style media="screen">
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,700');
+  #ea{
+     font-family: 'Oswald', sans-serif;
+     color: white;
+     position: absolute;
+     top: 10px;
+     left: 720px;
+
+  }
+  #canvas{
+    border: 5px solid black;
+  }
+  body{
+    margin:5;
+    background-color: black;
+  }
+
+</style>
+
+
+<script type="text/javascript">
+
+var can=document.getElementById('canvas');
+var ctx=can.getContext('2d');
+can.width=700;
+can.height=650;
+ctx.fillStyle="#101022";
+ctx.fillRect(0,0,can.width,can.height);
+ship=new Image();
+alien=new Image();
+fire=new Image();
+bg=new Image();
+pew=new Audio();
+boom=new Audio();
+boom.src="boom.mp3";
+pew.src="pew.mp3";
+bg.src="spacebg.png";
+ship.src="ship2.png";
+alien.src="spaceoctopus.png";
+fire.src="fire.png";
+
+window.onload=function(){
+
+var
+x=100,
+y=545,
+gspeed=1,
+bspeed=10,
+framecnt=0,
+speedx=0,
+pewf=1,
+speedy=0,
+bgy=-can.height,
+bgspeed=5
+;
+
+
+
+var fyre={
+  x:can.width+10,
+  y:can.height+10,
+  show:0
+};
+
+var ttt={
+  x:100,
+  y:100,
+  speedx:1,
+  speedy:0
+};
+
+var bullet={
+  x:can.width+10,
+  y:can.height+10,
+  speed:0,
+};
+
+bullets=[];
+
+
+
+
+function controller(e){
+  var f=e.keyCode;
+  if(f==37) speedx=-10;
+  if(f==39) speedx=10;
+  if(f==40) speedx=0;
+  if(f==88 && bullet.speed==0 && pewf==1)
+  {
+      // fyre=1;
+       pew.play(); pewf=0;
+       bullet.x=x+30;
+       bullet.y=529;
+       bullet.speed=bspeed;
+  }
+
+}
+
+function reset(e)
+{
+  e.x=can.width+10;
+  e.y=can.height+10;
+  e.speedx=0;
+  e.speedy=0;
+}
+
+function loop(){
+  if(framecnt==0)
+  {
+    //background
+  ctx.fillStyle="#101022";
+  ctx.fillRect(0,0,can.width,can.height);
+  ctx.drawImage(bg,0,bgy,can.width,can.height);
+  ctx.drawImage(bg,0,bgy+can.height,can.width,can.height);
+  bgy+=bgspeed;
+  if(bgy>=0) bgy=-can.height;
+
+ctx.drawImage(ship,x,y,70,95);
+ctx.drawImage(alien,ttt.x,ttt.y,100,80);
+
+
+
+//bullet
+ctx.fillStyle="white";
+ctx.fillRect(bullet.x,bullet.y,10,10);
+//bullet collision
+if(bullet.x>=ttt.x+20 && bullet.x<=ttt.x+80
+   && bullet.y>=ttt.y && bullet.y<=ttt.y+80 )
+   {
+     boom.play();
+     fyre.show=1; fyre.x=ttt.x; fyre.y=ttt.y;
+     bullet.x=can.width+10;
+     bullet.y=can.height+100;
+
+     bullet.speed=0;
+     reset(ttt);
+   }
+   if(bullet.y<-1) bullet.speed=0;
+   bullet.y=bullet.y-bullet.speed;
+
+//Fire display
+if(fyre.show!=0)
+{
+
+  ctx.drawImage(fire,fyre.x,fyre.y,100,100);
+  console.log(fyre.show);
+  fyre.show++;
+  if(fyre.show>60) fyre.show=0;
+}
+
+if(x>can.width-90 && speedx>0) speedx=0;
+if(x<20 && speedx<0) speedx=0;
+x=x+speedx;
+ttt.x+=ttt.speedx;
+ttt.y+=ttt.speedy;
+
+}
+
+framecnt=(framecnt+1)%gspeed;
+window.requestAnimationFrame(loop);
+}
+
+loop();
+pew.addEventListener("ended",function(){
+  pewf=1;
+})
+window.addEventListener("keydown",controller);
+//window.addEventListener("keyup",stop);
+
+}
+</script>
