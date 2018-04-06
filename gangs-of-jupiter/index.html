@@ -93,7 +93,15 @@ var bullet={
 bullets=[];
 
 
-
+function clickf(){
+	if( bullet.speed==0 && pewf==1)
+	{
+		pew.play(); pewf=0;
+       bullet.x=x+30;
+       bullet.y=529;
+       bullet.speed=bspeed;
+	}
+}
 
 function controller(e){
   var f=e.keyCode;
@@ -180,6 +188,7 @@ pew.addEventListener("ended",function(){
   pewf=1;
 })
 window.addEventListener("keydown",controller);
+window.addEventListener("click",clickf);
 //window.addEventListener("keyup",stop);
 
 }
