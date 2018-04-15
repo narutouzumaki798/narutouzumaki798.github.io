@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Super-Pong</title>
+  </head>
+  <body>
+    <canvas id="can" width="300" height="300"></canvas>
+    <h1 id="p2">Player 2 : A,D </h1>
+    <h1 id="p1">Player 1 : Left,Right </h1>
+    <h1 id="s1">Score: 0</h1>
+    <h1 id="s2">Score: 0</h1>
+    <h1 id="win"></h1>
+  </body>
+</html>
+<style media="screen">
+@import url('https://fonts.googleapis.com/css?family=Oswald:700');
+  h1{
+    color:white;
+    position:absolute;
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
+  }
+  #over{
+    position:absolute;
+    top:170px;
+    left:205px;
+  }
+  #win{
+    font-size: 21px;
+    top:302px;
+    left:720px;
+  }
+  #s2{
+    top:50px;
+    left:720px;
+  }
+  #s1{
+    top:545px;
+    left:720px;
+  }
+  #p2{
+    top:5px;
+    left:720px;
+  }
+  #p1{
+    top:590px;
+    left:720px;
+  }
+  body{
+    background-color: black;
+  }
+  canvas{
+    border: 1px solid black;
+  }
+</style>
+
+<script type="text/javascript">
+
+var cc=document.getElementById("can");
+cc.width=700; cc.height=650;
+var ctx=cc.getContext('2d');
+ctx.fillStyle="#0b133a";
+ctx.fillRect(0,0,cc.width,cc.height);
+var aaa=new Audio();
+aaa.src="aaa.mp3";
+var
+paddlex=130,
+f=0,
+winscore=4,
+score1=0,
+score2=0,
+paddley=15,
+speed=10;
+
+function controller(e){
+   if(e.type=="keyup")
+   {
+     if(e.keyCode==37 && player1.speed<0)
+     player1.speed=0;
+     if(e.keyCode==39 && player1.speed>0)
+     player1.speed=0;
+     if(e.keyCode==65 && player2.speed<0)
+     player2.speed=0;
+     if(e.keyCode==68 && player2.speed>0)
+     player2.speed=0;
+
+   }
+   else
+   {
+     if(e.keyCode==32)
+     {
+       if(f==1)
+       {
+         f=0;
+         ball.x=can.width/2-10;
+         ball.y=can.height/2-10;
+         ball.speedx=-5;
+         ball.speedy=-5;
+         player1.x=550;
+         player2.x=20;
+         loop();
+       }
+       if(f==2)
+       {
+         f=0;
+         ball.x=can.width/2-10;
+         ball.y=can.height/2-10;
+         ball.speedx=5;
+         ball.speedy=5;
+         player1.x=550;
+         player2.x=20;
+         loop();
+       }
+     }
+     if(e.keyCode==37) player1.speed=-speed;
+     else if(e.keyCode==39) player1.speed=speed;
+     if(e.keyCode==65) player2.speed=-speed;
+     else if(e.keyCode==68) player2.speed=speed;
+   }
+}
+
+ var player1={
+  x:550,
+  y:can.height-35,
+  speed:0,
+  };
+
+  var player2={
+    x:20,
+    y:20,
+    speed:0
+    };
+
+  var ball={
+    x:can.width/2-10,
+    y:can.height/2-10,
+    speedx:5.5,
+    speedy:5
+  };
+
+  var cpu={
+    x:can.width-25-paddlex,
+    y:20,
+    speed:0
+  };
+
+
+function player1_collide(){
+  var centre=ball.x+10;
+  if(player1.x<=ball.x+20 && player1.x>=ball.x-paddlex
+     && ball.y+20>=player1.y && ball.y+20<=player1.y+paddley
+     && ball.speedy>0
+    )
+  return true;
+  else
+  return false;
+}
+
+function player2_collide(){
+  var centre=ball.x+10;
+  if(player2.x<=ball.x+20 && player2.x>=ball.x-paddlex
+     && ball.y<=player2.y+paddley && ball.y>=player2.y
+     && ball.speedy<0
+    )
+  return true;
+  else
+  return false;
+}
+
+function cpu_collide(){
+  var centre=ball.x+10;
+  if(cpu.x<=centre && cpu.x>=centre-paddlex
+     && ball.y<=cpu.y+paddley && ball.y>=cpu.y
+     && ball.speedy<0
+    )
+  return true;
+  else
+  return false;
+}
+
+
+
+function ai(){
+ var centre=cpu.x+paddlex/2;
+ ball_centre=ball.x+10;
+ if(ball_centre<centre && cpu.speed>=-speed) cpu.speed=-speed;
+ else if(ball_centre>centre
+   && cpu.speed<=speed) cpu.speed=speed;
+ //else cpu.speed=0;
+
+}
+function gover()
+{
+  var img = document.createElement("img");
+  img.src ="iii.png";
+  img.width = 300;
+  img.id="over";
+  img.height = 50;
+  document.body.appendChild(img);
+  document.getElementById('win');
+  if(score1==winscore)
+  win.innerHTML="Player 1 wins";
+  else
+  win.innerHTML="Player 2 wins";
+}
+
+
+
+function loop(){
+   ctx.fillStyle="#123752";
+   ctx.fillRect(0,0,cc.width,cc.height);
+   ctx.fillStyle="#ffffff";
+   ctx.fillRect(0,320,can.width,10);
+   ctx.beginPath();
+   ctx.arc(350,325,100,0,2*Math.PI);
+   ctx.lineWidth=9;
+   ctx.strokeStyle="#ffffff";
+   ctx.stroke();
+
+
+   //cpu update
+   // ai();
+   // cpu.x+=cpu.speed;
+
+   //ball-out
+   if(ball.y>can.height)
+   {
+     f=2; score2++;
+   }
+   if(ball.y<-20)
+   {
+     f=1; score1++;
+   }
+
+   //ball update
+   if(player1_collide()||player2_collide())
+   {
+     aaa.pause();
+     aaa.currentTime=0;
+     aaa.play();
+     ball.speedy=(ball.speedy<7)?ball.speedy*(-1.1):ball.speedy*(-1);
+   }
+   ball.x+=ball.speedx;
+   ball.y+=ball.speedy;
+   if(ball.x>=can.width-20 || ball.x<=0) ball.speedx*=(-1);
+
+   //player1 update
+   if(player1.x<=20 && player1.speed<0) player1.speed=0;
+   if(player1.x>=can.height-100 && player1.speed>0) player1.speed=0;
+   player1.x+=player1.speed;
+   //player2 update
+   if(player2.x<=20 && player2.speed<0) player2.speed=0;
+   if(player2.x>=can.height-100 && player2.speed>0) player2.speed=0;
+   player2.x+=player2.speed;
+
+   //score-update
+   var x=document.getElementById('s1');
+   x.innerHTML="Score: "+score1;
+   x=document.getElementById('s2');
+   x.innerHTML="Score: "+score2;
+
+   //g-over
+   if(score1==winscore || score2==winscore)
+   {
+     f=3;
+     window.requestAnimationFrame(gover);
+   }
+
+   //drawing----------------------
+
+   //paddles
+   ctx.fillStyle="white";
+   ctx.fillRect(player1.x,player1.y,130,15);
+   ctx.fillRect(player2.x,player2.y,130,15);
+   //ctx.fillRect(cpu.x,cpu.y,130,15);
+
+   //ball
+   ctx.fillRect(ball.x,ball.y,20,20);
+
+   if(f==0)
+   window.requestAnimationFrame(loop);
+}
+
+loop();
+window.addEventListener("keydown",controller);
+window.addEventListener("keyup",controller);
+
+
+
+</script>
