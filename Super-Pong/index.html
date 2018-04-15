@@ -10,7 +10,7 @@
     <h1 id="p1">Player 1 : Left,Right </h1>
     <h1 id="s1">Score: 0</h1>
     <h1 id="s2">Score: 0</h1>
-    <h1 id="win"></h1>
+    <h1 id="win">SPACEBAR TO START</h1>
   </body>
 </html>
 <style media="screen">
@@ -28,7 +28,7 @@
   }
   #win{
     font-size: 21px;
-    top:302px;
+    top:303px;
     left:720px;
   }
   #s2{
@@ -68,7 +68,7 @@ window.onload=function()
 {
 var
 paddlex=130,
-f=0,
+f=-1,
 winscore=4,
 score1=0,
 score2=0,
@@ -92,6 +92,10 @@ function controller(e){
    {
      if(e.keyCode==32)
      {
+       if(f==-1)
+       {
+         f=0; loop();
+       }
        if(f==1)
        {
          f=0;
@@ -99,8 +103,7 @@ function controller(e){
          ball.y=can.height/2-10;
          ball.speedx=-5;
          ball.speedy=-5;
-         player1.x=550;
-         player2.x=20;
+       
          loop();
        }
        if(f==2)
@@ -110,8 +113,7 @@ function controller(e){
          ball.y=can.height/2-10;
          ball.speedx=5;
          ball.speedy=5;
-         player1.x=550;
-         player2.x=20;
+        
          loop();
        }
      }
@@ -136,7 +138,7 @@ function controller(e){
 
   var ball={
     x:can.width/2-10,
-    y:can.height/2-10,
+    y:310,
     speedx:5.5,
     speedy:5
   };
@@ -261,6 +263,9 @@ function loop(){
    x.innerHTML="Score: "+score1;
    x=document.getElementById('s2');
    x.innerHTML="Score: "+score2;
+   x=document.getElementById('win');
+   if(f==2 || f==1 || f==-1) x.innerHTML="SPACEBAR TO START";
+   else x.innerHTML="";
 
    //g-over
    if(score1==winscore || score2==winscore)
