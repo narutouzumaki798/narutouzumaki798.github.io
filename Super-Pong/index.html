@@ -69,8 +69,14 @@ window.onload=function()
 var
 paddlex=130,
 f=-1,
-winscore=4,
+winscore=20,
 score1=0,
+ispeed=5,
+left1=false,
+left2=false,
+right1=false,
+acc=2.5,
+right2=false,
 score2=0,
 paddley=15,
 speed=10;
@@ -78,14 +84,18 @@ speed=10;
 function controller(e){
    if(e.type=="keyup")
    {
-     if(e.keyCode==37 && player1.speed<0)
-     player1.speed=0;
-     if(e.keyCode==39 && player1.speed>0)
-     player1.speed=0;
-     if(e.keyCode==65 && player2.speed<0)
-     player2.speed=0;
-     if(e.keyCode==68 && player2.speed>0)
-     player2.speed=0;
+     if(e.keyCode==37 //&& player1.speed<0
+     )
+     left1=false;
+     if(e.keyCode==39 //&& player1.speed>0
+     )
+     right1=false;
+     if(e.keyCode==65 //&& player2.speed<0
+     )
+     left2=false;
+     if(e.keyCode==68 //&& player2.speed>0
+     )
+     right2=false;
 
    }
    else
@@ -101,9 +111,9 @@ function controller(e){
          f=0;
          ball.x=can.width/2-10;
          ball.y=can.height/2-10;
-         ball.speedx=-5;
-         ball.speedy=-5;
-       
+         ball.speedx=0;
+         ball.speedy=-ispeed;
+
          loop();
        }
        if(f==2)
@@ -111,16 +121,16 @@ function controller(e){
          f=0;
          ball.x=can.width/2-10;
          ball.y=can.height/2-10;
-         ball.speedx=5;
-         ball.speedy=5;
-        
+         ball.speedx=0;
+         ball.speedy=ispeed;
+
          loop();
        }
      }
-     if(e.keyCode==37) player1.speed=-speed;
-     else if(e.keyCode==39) player1.speed=speed;
-     if(e.keyCode==65) player2.speed=-speed;
-     else if(e.keyCode==68) player2.speed=speed;
+     if(e.keyCode==37) left1=true;
+     else if(e.keyCode==39) right1=true;
+     if(e.keyCode==65) left2=true;
+     else if(e.keyCode==68) right2=true;
    }
 }
 
@@ -139,8 +149,8 @@ function controller(e){
   var ball={
     x:can.width/2-10,
     y:310,
-    speedx:5.5,
-    speedy:5
+    speedx:0,
+    speedy:ispeed
   };
 
   var cpu={
@@ -226,6 +236,18 @@ function loop(){
    //cpu update
    // ai();
    // cpu.x+=cpu.speed;
+   if(left1) player1.speed+=-acc;
+   if(right1) player1.speed+=acc;
+   if(left2) player2.speed+=-acc;
+   if(right2) player2.speed+=acc;
+   if(player1.speed>20) player1.speed=20;
+   if(player2.speed>20) player2.speed=20;
+   if(player1.speed<-20) player1.speed=-20;
+   if(player2.speed<-20) player2.speed=-20;
+
+   //friction
+   player1.speed*=0.9;
+   player2.speed*=0.9;
 
    //ball-out
    if(ball.y>can.height)
@@ -244,19 +266,52 @@ function loop(){
      aaa.currentTime=0;
      aaa.play();
      ball.speedy=(ball.speedy<7)?ball.speedy*(-1.1):ball.speedy*(-1);
+     //console.log('aaaa');
+     if(ball.speedy<0)
+     {
+     //console.log(player1_collide());
+     ball.speedx+=0.4*player1.speed;
+     }
+     else
+     ball.speedx+=0.4*player2.speed;
+     // if(ball.speedx==0)
+     // ball.speedx=(player1_collide())?2:-2;
    }
    ball.x+=ball.speedx;
    ball.y+=ball.speedy;
-   if(ball.x>=can.width-20 || ball.x<=0) ball.speedx*=(-1);
+
+   if((ball.x>=can.width-20 && ball.speedx>0)
+   || ( ball.x<=0 && ball.speedx<0)) ball.speedx*=(-0.7);
 
    //player1 update
-   if(player1.x<=20 && player1.speed<0) player1.speed=0;
-   if(player1.x>=can.height-100 && player1.speed>0) player1.speed=0;
    player1.x+=player1.speed;
+   if(player1.x<=20 && player1.speed<0)
+   {
+      var offset=20-player1.x;
+      player1.x+=offset;
+      player1.speed=0;
+    }
+   if(player1.x>=can.width-150 && player1.speed>0)
+   {
+      var offset=(can.width-150)-player1.x;
+      player1.x+=offset;
+      player1.speed=0;
+    }
    //player2 update
-   if(player2.x<=20 && player2.speed<0) player2.speed=0;
-   if(player2.x>=can.height-100 && player2.speed>0) player2.speed=0;
    player2.x+=player2.speed;
+   if(player2.x<=20 && player2.speed<0)
+   {
+      var offset=20-player2.x;
+      player2.x+=offset;
+      player2.speed=0;
+    }
+   if(player2.x>=can.width-150 && player2.speed>0)
+   {
+      var offset=(can.width-150)-player2.x;
+      player2.x+=offset;
+      player2.speed=0;
+    }
+
 
    //score-update
    var x=document.getElementById('s1');
