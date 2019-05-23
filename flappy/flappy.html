@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>aaa</title>
+</head>
+<body style = "background-color: black" >
+<canvas  id="myCanvas"></canvas>
+</body>
+
+
+
+<script type="text/javascript">
+	
+var c = document.getElementById("myCanvas");
+W = 500; H = 500;
+c.width  = W;
+c.height = H;
+var ctx = c.getContext("2d");
+
+birdx = W/2 - 25;
+birdy = 50;
+speedx = -4;
+speedy = -1;
+
+obstacle1x = 100;
+obstacle1y = 100;
+obstacle2x = -1000;
+obstacle2y = -1000;
+gap = 200;
+
+g = 0.3;
+
+ctx.fillStyle="#000000";
+ctx.fillRect(0, 0, W, H);
+
+function controller(event){
+	if(event.keyCode==32)
+	{
+		speedy = -7;
+	}
+}
+
+function restart(){
+	birdx = W/2 - 25;
+	birdy = 50;
+	speedx = -4;
+	speedy = -1;
+
+	obstacle1x = 100;
+	obstacle1y = 100;
+	obstacle2x = -1000;
+	obstacle2y = -1000;
+}
+
+function loop(){
+
+	ctx.fillStyle="#200040";
+	ctx.fillRect(0, 0, W, H);
+
+	ctx.fillStyle="#ff0000";
+	ctx.fillRect(birdx, birdy, 50, 50);
+
+	ctx.fillStyle="#00AA00";
+	ctx.fillRect(obstacle1x, 0, 100, obstacle1y);
+	ctx.fillRect(obstacle1x, obstacle1y + gap, 100, 1000);
+	ctx.fillRect(obstacle2x, 0, 100, obstacle2y);
+	ctx.fillRect(obstacle2x, obstacle2y + gap, 100, 1000);
+
+
+	//update
+	birdy += speedy;
+	obstacle1x += speedx;
+	obstacle2x += speedx;
+	speedy += g;
+
+	//respawn obstacle
+	if(obstacle1x < W/3 && obstacle2x < -110)
+	{
+		obstacle2x = W + 20;
+		obstacle2y = Math.random()*(H/3) + (H/6);
+	}
+	if(obstacle2x < W/3 && obstacle1x < -110)
+	{
+		obstacle1x = W + 20;
+		obstacle1y = Math.random()*(H/3) + (H/6);
+	}
+
+	//collision
+	if((birdx + 50 >= obstacle1x && birdx <= obstacle1x + 100) &&
+	   (birdy <= obstacle1y || birdy + 50 >= obstacle1y + gap))
+	{
+		restart();
+	}
+	if((birdx + 50 >= obstacle2x && birdx <= obstacle2x + 100) &&
+	   (birdy <= obstacle2y || birdy + 50 >= obstacle2y + gap))
+	{
+		restart();
+	}
+
+	console.log(obstacle1x - obstacle2x);
+
+	window.requestAnimationFrame(loop);
+}
+
+loop();
+window.addEventListener("keydown",controller);
+
+</script>
+</html>
