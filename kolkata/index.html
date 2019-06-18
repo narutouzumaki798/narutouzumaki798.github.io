@@ -21,6 +21,7 @@
 	      </div>
 	  </div>
 	  <div class="desc">Victoria Memorial</div>
+	  <input type="image" src="add.png" alt="Submit" class = "add" onclick="x = 1; add_this();">
 	</div>
 
 	<div class="gallery">
@@ -32,6 +33,7 @@
 	      </div>
 	  </div>
 	  <div class="desc">Rabindra Sarobar</div>
+	  <input type="image" src="add.png" alt="Submit" class = "add" onclick="x = 1; add_this();">
 	</div>
 
 	<div class="gallery">
@@ -43,6 +45,7 @@
 	      </div>
 	  </div>
 	  <div class="desc">Birla Mandir</div>
+	  <input type="image" src="add.png" alt="Submit" class = "add" onclick="x = 1; add_this();">
 	</div>
 
 
@@ -53,13 +56,21 @@
 </html>
 <style type="text/css">
 
+	.add{
+		width : 20px;
+		height : 20px;
+		position: absolute;
+		top: 145px;
+  		left: 175px;
+	}
+
 	body {
-	 background-image: url("ttt.jpg");
+	 background-image: url("background1.jpg");
 	 background-position: center; /* Center the image */
   	 background-repeat: no-repeat; /* Do not repeat the image */
   	 background-size: cover;
-  	 width : 1000px;
-  	 height : 800px;
+  	 width : 900px;
+  	 height : 700px;
 	}
 
 	/*div.main{
@@ -95,6 +106,9 @@
 	div.gallery{
 		float : left;
 		margin : 0px 20px 0px 20px;
+		position: relative;
+	    left: 0px;  /* stick it wherever it was positioned by default */
+	    top: 0px;
 	}
 	div.gallery_bg{
 		border-radius:8px;
@@ -123,3 +137,12 @@
 	  	border-radius : 8px;
 	}
 </style>
+
+<script type="text/javascript">
+	var x;
+
+	function add_this()
+    {
+        alert("aaa" + x);
+    }
+</script>
